@@ -1,0 +1,279 @@
+body {
+  font-family: Roboto;
+  background: #36D1DC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+nav {
+  padding: 15px 0;
+  border-bottom: 2px solid white;
+  color: white;
+  margin: 0 25px;
+}
+
+nav a {
+  color: white;
+}
+
+nav a:hover {
+  color: #efefef;
+}
+
+nav a:link {
+  text-decoration: none;
+}
+
+nav ul {
+  margin-bottom: 0;
+}
+
+nav li {
+  list-style-type: none;
+  display: inline-block;
+  font-size: 1.5rem;
+}
+
+nav li:not(:first-child) {
+  margin-left: 20px;
+}
+
+nav ul {
+	display: inline-block;
+}
+
+input {
+  font-size: 18px;
+  background-color: #F7F7F7;
+  width: 100%;
+  padding: 13px 13px 13px 20px;
+  box-sizing: border-box;
+  border: 3px solid rgba(0,0,0,0);
+}
+
+input:focus {
+  background: white;
+  border: 3px solid #2980B9;
+  outline: none;
+}
+
+#container {
+  width: 360px;
+  margin: 100px auto;
+  background: #F7F7F7;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+#story {
+  margin-top: 25px;
+  position: relative;
+}
+
+#story #topbar {
+  border-radius: 25px 25px 0 0;
+  background-color: aliceblue;
+  padding: 10px 20px;
+
+}
+
+#story #topbar p {
+  /* font-size: 1.6rem; */
+  margin: 0;
+}
+
+#story #topbar h3 {
+  display: inline-block;
+}
+
+#story #topbar .buttons {
+  float: right;
+  font-size: 1.4rem;
+}
+
+#story #topbar .buttons .my-tooltip {
+  display: inline;
+}
+
+#story #topbar .buttons .my-tooltip .tooltiptext {
+  position: absolute;
+  left: 36px;
+}
+
+#story #topbar .buttons .my-tooltip:not(:first-child) {
+  margin-left: 5px;
+}
+
+#story #topbar i {
+  color: #b7b7b7;
+}
+
+#story #topbar .fa-flag:hover {
+  color: #c50000;
+}
+
+#story #topbar .fa-share-square:hover {
+  color: black;
+}
+
+#story #topbar #btn-favourite:hover {
+  color: orange;
+}
+
+#story #topbar .buttons i {
+  transition: 0.5s;
+}
+
+#story #topbar .buttons i {
+  cursor: pointer;
+}
+
+#story-main {
+  margin-top: 2px;
+  background-color: rgba(240, 248, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 0 0 25px 25px;
+}
+
+#story-main p {
+  font-size: 1.3rem;
+}
+
+#new-text {
+  margin-top: 40px;
+  display: flex;
+}
+
+#new-text button {
+  width: 150px;
+  margin-left: 20px;
+  border-radius: 25px;
+}
+
+#new-text input {
+  border: none;
+  border-radius: 25px;
+}
+
+#new-text button.text-orange {
+  color: #ff7c00;
+}
+
+#player-text {
+  color: grey;
+}
+
+#player-text-too-long {
+  color: #af4646;
+}
+
+.story-slice {
+  cursor: default;
+}
+
+.story-slice:hover {
+  /* color: blue; */
+  text-shadow: 0 0 3px #000000;
+  /* text-shadow: 2px 4px 3px rgba(0,0,0,0.3); */
+  /* transition: 0.5s; */
+}
+
+/* Tooltip container */
+.my-tooltip {
+  position: relative;
+}
+
+.my-tooltip .tooltiptext {
+    visibility: hidden;
+/*     width: 20-0px; */
+    background-color: #555;
+    color: #fff;
+/*     text-align: center; */
+    padding: 10px;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 12px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.my-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.my-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.my-tooltip .tooltiptext img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50px;
+  display: inline;
+  margin-right: 10px;
+}
+
+.slice-author {
+  display: inline;
+  font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile .photo {
+  flex: 0 1 auto;
+}
+
+#story-author-photo {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+#story-author {
+  font-weight: bold;
+}
+
+#story-main .profile .info {
+  flex: 1 0 auto;
+}
+
+#story-main .profile .info p {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.profile .info i {
+  display: inline;
+}
+
+#no-story {
+  display: none;
+  color: white;
+}
+
+#no-story a {
+  color: white;
+  text-decoration: underline;
+}

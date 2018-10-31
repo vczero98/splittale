@@ -1,0 +1,27 @@
+.container {
+  text-align: center;
+  padding-top: 15%;
+  color: white;
+}
+
+.fb-button {
+  background-color: #486cad;
+  border: none;
+}
+
+.fb-button:hover {
+  background-color: #365792;
+}
+
+.fb-button i {
+  position: relative;
+  top: 2px;
+  font-size: 1.7rem;
+}
+
+.fb-button span {
+  position: relative;
+  top: -1px;
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
