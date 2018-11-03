@@ -2,7 +2,9 @@ var express    = require("express"),
     middleware = require("../middleware"),
     router     = express.Router(),
     logging    = require("../logging"),
-    Story      = require("../models/story");
+    mongoose   = require("mongoose"),
+    Story      = require("../models/story"),
+    Favourite  = require("../models/favourite");
 
 module.exports = function(storyHandler) {
   router.get("/write", middleware.isLoggedIn, function(req, res) {
@@ -11,10 +13,21 @@ module.exports = function(storyHandler) {
 
   router.get("/getstory", middleware.isLoggedIn, function(req, res) {
     var story = storyHandler.getAnyStoryToEdit(req.user._id);
-    // var storyNum = storyCount++ % stories.length;
-    // console.log("Replying with " + story)
 
-    res.send(story);
+	if (story) {
+		// Check if the story is in favourites
+	    Favourite.count({u_id: req.user._id, s_id: story._id}, function(err, count) {
+	      if (err) {
+	        logging.error(err);
+	      } else {
+	        var returnStory = story.toObject();
+	        returnStory.isFavourite = count > 0;
+	        res.send(returnStory);
+	      }
+	    });
+	} else {
+		res.send(story);
+	}
   });
 
   router.post("/addwords", middleware.isLoggedIn, function(req, res) {
@@ -24,15 +37,95 @@ module.exports = function(storyHandler) {
     res.send(storyHandler.submitEdit(storyID, newWords, req.user._id));
   });
 
-  router.get("/my-stories", middleware.isLoggedIn, function(req, res) {
-    Story.find({author: req.user._id}, function(err, stories) {
+  router.get("/inputtest", function(req, res) {
+    res.render("inputtest");
+  });
+
+  router.get("/favourites", middleware.isLoggedIn, function(req, res) {
+    Favourite.find({u_id: req.user._id}).populate("s_id", "_id title words.a category").exec(function(err, favs) {
       if (err) {
         logging.error(err);
         res.redirect("/");
       } else {
+        var stories = [];
+        favs.forEach((fav) => {stories.push(fav.s_id)});
+        res.render("favourites", {stories: stories});
+      }
+    });
+  });
+
+  router.get("/my-stories", middleware.isLoggedIn, function(req, res) {
+    Story.find({author: req.user._id}).select("_id title words.a category").exec(function(err, stories) {
+      if (err) {
+        logging.error(err);
+        res.redirect("/");
+      } else {
+        stories = stories.sort((a, b) => b.words.length - a.words.length);
         res.render("mystories", {stories: stories});
       }
     });
+  });
+
+  // Favourites - CREATE route
+  router.post("/favourites", middleware.isLoggedIn, function(req, res) {
+    var storyID = req.body._id;
+    if (!mongoose.Types.ObjectId.isValid(storyID)) {
+      res.send(false);
+    } else {
+      // Check if the story exists
+      Story.count({_id: storyID}, function(err, count) {
+        if (err) {
+          logging.error(err);
+          res.send(false);
+        } else {
+          if (count == 0) {
+            res.send(false);
+          } else {
+            checkIfInFavourites();
+          }
+        }
+      });
+    }
+
+    function checkIfInFavourites() {
+      Favourite.count({u_id: req.user._id, s_id: storyID}, function(err, count) {
+        if (err) {
+          res.send(false);
+        } else {
+          if (count > 0) {
+            res.send(false);
+          } else {
+            addFavourite();
+          }
+        }
+      })
+    }
+
+    function addFavourite() {
+      Favourite.create({u_id: req.user._id, s_id: storyID}, function(err) {
+        if (err) {
+           res.send(false);
+        } else {
+           res.send(true);
+        }
+      });
+    }
+  });
+
+  // Favourites - CREATE route
+  router.delete("/favourites/:id", middleware.isLoggedIn, function(req, res) {
+    var storyID = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(storyID)) {
+      res.send(false);
+    } else {
+      Favourite.deleteOne({u_id: req.user._id, s_id: storyID}, function(err) {
+        if (err) {
+          res.send(false);
+        } else {
+          res.send(true);
+        }
+      });
+    }
   });
 
   return router;

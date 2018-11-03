@@ -7,6 +7,51 @@ $("#input-text").on("input", function() {
  updateEntry();
 });
 
+// Favourites button
+$("#btn-favourite").click(function() {
+  if (story.isFavourite) {
+    $.ajax({url: "/favourites/" + story._id, type: 'DELETE', success: function(data) {
+      story.isFavourite = false;
+      updateFavouriteButton();
+    }});
+  } else {
+    $.post("/favourites", {_id: story._id}, function(data) {
+      if (data) {
+        story.isFavourite = true;
+        updateFavouriteButton();
+      }
+    });
+  }
+});
+
+function updateFavouriteButton() {
+  var button = $("#btn-favourite");
+  var text = $("#txt-favourite");
+  if (story.isFavourite) {
+    button.addClass("fas").removeClass("far");
+    text.text("Remove favourite");
+  } else {
+    button.addClass("far").removeClass("fas");
+    text.text("Add favourite");
+  }
+}
+
+// Share button
+$("#btn-share").click(function() {
+  $("#shareModal").modal('show');
+});
+
+$("#share-link").on("input", function() {
+  $(this).val("https://www.splittale.com/stories/" + story._id);
+});
+
+function copyToClipboard() {
+  $("#share-link").select();
+  document.execCommand('copy');
+  $("#btn-copy-to-cl").text("Copied to clipboard");
+  setTimeout(() => {$("#btn-copy-to-cl").text("Copy to clipboard")}, 5000)
+}
+
 // Update when the user's input changes
 function updateEntry() {
   // Add text to story
@@ -44,6 +89,9 @@ $(document).ready(function() {
   });
 });
 
+$('body').bind('focusin focus', function(e){
+  e.preventDefault();
+})
 
 function getStory(next) {
   $.get("/getstory", { name: "John", time: "2pm" }, function(data) {
@@ -68,6 +116,8 @@ function displayStory() {
     $("#story-author-photo").attr("src", "");
     $("#story-author-photo").hide();
     addFacebookPhotoAuthor(story.author.fb_id);
+    updateFavouriteButton();
+    $("#share-link").val("https://splittale.com/stories/" + story._id);
 
     var category = categories.categoryFromID(story.category);
     if (category) $("#story-category").text(category);

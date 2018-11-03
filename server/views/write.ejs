@@ -5,21 +5,41 @@
         <h3 id="story-title"></h3>
         <div class="buttons">
           <div class="my-tooltip"><i class="fas fa-flag"></i><span class="tooltiptext">Report</span></div>
-          <div class="my-tooltip"><i id="btn-favourite" class="far fa-star"></i><span class="tooltiptext">Add to favourites</span></div>
-          <div class="my-tooltip"><i class="fas fa-share-square"></i><span class="tooltiptext">Share</span></div>
+          <div class="my-tooltip"><i id="btn-favourite" class="far fa-star"></i><span class="tooltiptext"><span id="txt-favourite">Add to favourites</span></span></div>
+          <div class="my-tooltip"><i id="btn-share" class="fas fa-share-square"></i><span class="tooltiptext">Share</span></div>
         </div>
         <p><img id="story-author-photo" src=""> <span id="story-author"></span> | <span id="story-category"></span></p>
       </div>
       <div id="story-main">
         <p><span class="story-slice"><span id="player-text"></span><span id="player-text-too-long"></span></p>
       </div>
-      <form id="new-text" action="index.html">
+      <form id="new-text" onsubmit="nextStory(); return false;">
         <input id="input-text" type="text" name="newText" placeholder="Enter up to 5 words" autocomplete="off">
         <button type="button" class="btn btn-light text-primary">Skip →</button>
       </form>
     </div>
     <div id="no-story">
       <p>No stories are available at the moment. So why not create one?</p>
+    </div>
+  </div>
+  <!-- Copy to clipboard modal -->
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shareModalLabel">Share</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="share-link">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="copyToClipboard()" id="btn-copy-to-cl">Copy to clipboard</button>
+        </div>
+      </div>
     </div>
   </div>
   <script type="text/javascript" src="/js/protocol.js"></script>

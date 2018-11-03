@@ -5,6 +5,8 @@ body {
   background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+/* Navbar */
+
 nav {
   padding: 15px 0;
   border-bottom: 2px solid white;
@@ -12,35 +14,24 @@ nav {
   margin: 0 25px;
 }
 
-nav a {
-  color: white;
-}
-
-nav a:hover {
-  color: #efefef;
-}
-
-nav a:link {
-  text-decoration: none;
-}
-
-nav ul {
-  margin-bottom: 0;
-}
-
-nav li {
-  list-style-type: none;
-  display: inline-block;
+.navbar-brand {
   font-size: 1.5rem;
 }
 
-nav li:not(:first-child) {
-  margin-left: 20px;
+.navbar-dark .navbar-nav .nav-link  {
+  color: white;
+  font-size: 1.5rem;
 }
 
-nav ul {
-	display: inline-block;
+.navbar-dark .navbar-nav .nav-link :hover {
+  color: #efefef;
 }
+
+.navbar-dark .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Input */
 
 input {
   font-size: 18px;
@@ -96,7 +87,18 @@ input:focus {
 
 #story #topbar .buttons .my-tooltip .tooltiptext {
   position: absolute;
+}
+
+#story #topbar .buttons .my-tooltip:nth-child(1) .tooltiptext {
+  left: 43px;
+}
+
+#story #topbar .buttons .my-tooltip:nth-child(2) .tooltiptext {
   left: 36px;
+}
+
+#story #topbar .buttons .my-tooltip:nth-child(3) .tooltiptext {
+  left: 45px;
 }
 
 #story #topbar .buttons .my-tooltip:not(:first-child) {
@@ -119,6 +121,10 @@ input:focus {
   color: orange;
 }
 
+#story #topbar #btn-favourite.fas {
+  color: orange;
+}
+
 #story #topbar .buttons i {
   transition: 0.5s;
 }
@@ -136,6 +142,58 @@ input:focus {
 
 #story-main p {
   font-size: 1.3rem;
+}
+
+.lg-list {
+  margin-top: 25px;
+  position: relative;
+}
+
+.lg-list .header {
+  border-radius: 25px 25px 0 0;
+  background-color: aliceblue;
+  padding: 10px 20px;
+
+}
+
+.lg-list .header h3 {
+  display: inline-block;
+}
+
+.lg-list .header .buttons {
+  float: right;
+  font-size: 1.4rem;
+}
+
+.lg-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.lg-list li {
+  margin-top: 2px;
+  background-color: rgba(240, 248, 255, 0.9);
+  padding: 10px 20px;
+}
+
+.lg-list a:last-child li {
+  border-radius: 0 0 25px 25px;
+}
+
+.lg-list a li {
+  color: black;
+}
+
+.lg-list li p {
+  margin-bottom: 0;
+}
+
+.lg-list a:hover {
+  text-decoration: none;
+}
+
+.lg-list a:hover li {
+  background-color: rgba(240, 248, 255, 0.75);
 }
 
 #new-text {
@@ -277,3 +335,23 @@ input:focus {
   color: white;
   text-decoration: underline;
 }
+
+/*
+ * disable auto-zoom on iphone input field focus
+ * http://www.456bereastreet.com/archive/201212/ios_webkit_browsers_and_auto-zooming_form_controls/
+*/
+/* input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus {
+	font-size: 16px;
+} */
+
+/* disable auto-zoom on iphone input field focus */
+/* @media screen and (-webkit-min-device-pixel-ratio:0) {
+
+	select:focus,
+	textarea:focus,
+	input:focus {
+		font-size: 16px;
+	}
+} */

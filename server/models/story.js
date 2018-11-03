@@ -13,7 +13,11 @@ var StorySchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     }
-  }]
+  }],
+  date: {
+    type: Date,
+    default: Date.now()
+  }
 });
 
 module.exports = mongoose.model("Story", StorySchema);
