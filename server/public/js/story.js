@@ -127,8 +127,10 @@ function displayStory() {
     paragraph.empty();
     for (var i = 0; i < story.words.length; i++) {
       var div = document.createElement("div");
+      var toolTipDiv = document.createElement("div");
+      $(toolTipDiv).addClass("my-tooltip");
       var textSpan = document.createElement("span");
-      $(textSpan).addClass("story-slice my-tooltip");
+      $(textSpan).addClass("story-slice");
       $(textSpan).text(story.words[i].text + " ");
 
       // Create elements
@@ -150,14 +152,15 @@ function displayStory() {
       levelDisp.innerText = "Level " + levels.levelFromPoints(story.words[i].author.points);
 
       // Add elements
-      textSpan.append(tooltip);
+      toolTipDiv.append(textSpan);
+      toolTipDiv.append(tooltip);
       tooltip.append(profile);
       profile.append(photoDiv);
       photoDiv.append(photo);
       profile.append(info);
       info.append(sliceAuthor);
       info.append(levelDisp);
-      paragraph.append(textSpan);
+      paragraph.append(toolTipDiv);
     }
 
     var playerTextSpan = document.createElement("span");

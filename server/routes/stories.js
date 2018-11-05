@@ -37,8 +37,8 @@ module.exports = function(storyHandler) {
     res.send(storyHandler.submitEdit(storyID, newWords, req.user._id));
   });
 
-  router.get("/inputtest", function(req, res) {
-    res.render("inputtest");
+  router.get("/stories/new", function(req, res) {
+    res.render("new-story");
   });
 
   router.get("/favourites", middleware.isLoggedIn, function(req, res) {

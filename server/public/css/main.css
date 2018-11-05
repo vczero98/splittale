@@ -5,6 +5,10 @@ body {
   background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.on-background {
+  color: white;
+}
+
 /* Navbar */
 
 nav {
@@ -29,23 +33,6 @@ nav {
 
 .navbar-dark .navbar-toggler {
     border-color: rgba(255, 255, 255, 0.5);
-}
-
-/* Input */
-
-input {
-  font-size: 18px;
-  background-color: #F7F7F7;
-  width: 100%;
-  padding: 13px 13px 13px 20px;
-  box-sizing: border-box;
-  border: 3px solid rgba(0,0,0,0);
-}
-
-input:focus {
-  background: white;
-  border: 3px solid #2980B9;
-  outline: none;
 }
 
 #container {
@@ -133,6 +120,7 @@ input:focus {
   cursor: pointer;
 }
 
+/* Main part of story */
 #story-main {
   margin-top: 2px;
   background-color: rgba(240, 248, 255, 0.9);
@@ -144,6 +132,11 @@ input:focus {
   font-size: 1.3rem;
 }
 
+#story-main .my-tooltip {
+  display: inline;
+}
+
+/* Large lists */
 .lg-list {
   margin-top: 25px;
   position: relative;
@@ -153,7 +146,10 @@ input:focus {
   border-radius: 25px 25px 0 0;
   background-color: aliceblue;
   padding: 10px 20px;
+}
 
+.lg-list .header.empty {
+  border-radius: 25px;
 }
 
 .lg-list .header h3 {
@@ -201,19 +197,13 @@ input:focus {
   display: flex;
 }
 
+#new-text button.text-orange {
+  color: #ff7c00;
+}
+
 #new-text button {
   width: 150px;
   margin-left: 20px;
-  border-radius: 25px;
-}
-
-#new-text input {
-  border: none;
-  border-radius: 25px;
-}
-
-#new-text button.text-orange {
-  color: #ff7c00;
 }
 
 #player-text {
@@ -222,6 +212,39 @@ input:focus {
 
 #player-text-too-long {
   color: #af4646;
+}
+
+/* Forms */
+form button.round {
+  height: 53px;
+  border-radius: 25px;
+}
+
+form input, form select {
+  border: none;
+  border-radius: 25px;
+}
+
+input, select {
+  font-size: 18px;
+  background-color: #F7F7F7;
+  width: 100%;
+  padding: 13px 13px 13px 20px;
+  border: 0;
+}
+
+select {
+  -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input:focus, select:focus {
+  outline: none;
+}
+
+input:focus {
+  background: white;
 }
 
 .story-slice {
@@ -335,23 +358,3 @@ input:focus {
   color: white;
   text-decoration: underline;
 }
-
-/*
- * disable auto-zoom on iphone input field focus
- * http://www.456bereastreet.com/archive/201212/ios_webkit_browsers_and_auto-zooming_form_controls/
-*/
-/* input[type='text']:focus,
-input[type='number']:focus,
-textarea:focus {
-	font-size: 16px;
-} */
-
-/* disable auto-zoom on iphone input field focus */
-/* @media screen and (-webkit-min-device-pixel-ratio:0) {
-
-	select:focus,
-	textarea:focus,
-	input:focus {
-		font-size: 16px;
-	}
-} */

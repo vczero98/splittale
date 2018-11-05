@@ -1,7 +1,7 @@
 function Categories() {
   var self = this;
 
-  var categories = [{
+  self.categories = [{
     id: 1,
     name: "Animals"
   }, {
@@ -13,9 +13,9 @@ function Categories() {
   }];
 
   self.categoryFromID = function(id) {
-    for (var i = 0; i < categories.length; i++) {
-      if (categories[i].id == id)
-        return categories[i].name;
+    for (var i = 0; i < self.categories.length; i++) {
+      if (self.categories[i].id == id)
+        return self.categories[i].name;
     }
 
     return null;
