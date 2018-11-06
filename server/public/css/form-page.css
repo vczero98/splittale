@@ -11,3 +11,7 @@ form button.btn {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+#displayError {
+  display: none;
+}

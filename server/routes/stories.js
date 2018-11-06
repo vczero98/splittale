@@ -37,10 +37,28 @@ module.exports = function(storyHandler) {
     res.send(storyHandler.submitEdit(storyID, newWords, req.user._id));
   });
 
-  router.get("/stories/new", function(req, res) {
+  // Stories - INDEX route
+  router.get("/stories/:id", function(req, res) {
+    res.render("story", {storyID: req.params.id});
+  });
+
+  // Stories - NEW route
+  router.get("/stories/new", middleware.isLoggedIn, function(req, res) {
     res.render("new-story");
   });
 
+  // Stories - CREATE route
+  router.post("/stories", middleware.isLoggedIn, function(req, res) {
+    var title = req.body.title;
+    var words = req.body.start;
+    words = words.split(" ").filter(x => x !== "");
+    var category = req.body.category;
+    logging.info("Request for new story " + title + " " + words + " " +  category + " from " + req.user._id);
+    var error = storyHandler.createStory(title, words, category, req.user._id);
+    res.send(error);
+  });
+
+  // Favourites - INDEX route
   router.get("/favourites", middleware.isLoggedIn, function(req, res) {
     Favourite.find({u_id: req.user._id}).populate("s_id", "_id title words.a category").exec(function(err, favs) {
       if (err) {
@@ -52,6 +70,11 @@ module.exports = function(storyHandler) {
         res.render("favourites", {stories: stories});
       }
     });
+  });
+
+  // Stories - NEW route
+  router.get("/readstory/:id", function(req, res) {
+    res.send(storyHandler.getStoryToRead(req.params.id));
   });
 
   router.get("/my-stories", middleware.isLoggedIn, function(req, res) {
@@ -112,7 +135,7 @@ module.exports = function(storyHandler) {
     }
   });
 
-  // Favourites - CREATE route
+  // Favourites - DESTROY route
   router.delete("/favourites/:id", middleware.isLoggedIn, function(req, res) {
     var storyID = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(storyID)) {

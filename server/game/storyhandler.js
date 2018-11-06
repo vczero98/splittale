@@ -42,6 +42,10 @@ function StoryHandler() {
     return null;
   }
 
+  self.getStoryToRead = function(storyID) {
+    return getStoryByID(storyID);
+  }
+
   self.submitEdit = function(storyID, newWords, userID) {
     var story = getStoryByID(storyID);
     if (story == undefined)
@@ -49,7 +53,7 @@ function StoryHandler() {
     var lockCheck = isStoryLocked(storyID)
     if (lockCheck.locked && lockCheck.lockedBy != userID)
       return {error: "Story is being edited by someone else"};
-    if (!validateInput(newWords))
+    if (!validateInput(newWords, 5))
       return {error: "Words are not valid"};
 
       // Submit modified story to database;
@@ -65,6 +69,29 @@ function StoryHandler() {
         findAndUpdateStory(storyID, story);
       }
     });
+  }
+
+  self.createStory = function(title, words, category, userID) {
+    if (title == undefined || title == "")
+      return {error: "Invalid title"};
+    if (words == undefined || !validateInput(words, 15))
+      return {error: "Invalid text"};
+    if (category == undefined || category == "" || isNaN(category) || category < 0)
+      return {error: "Invalid category"};
+
+    var newStory = new Story({
+      title: title,
+      author: userID,
+      category: category,
+      words: [{text: words, author: userID}]
+    });
+
+    var promise = newStory.save();
+    if (!(promise instanceof Promise)) {
+      return {error: "Could not save story"};
+    }
+
+    return {error: null};
   }
 
   function getStoryByID(storyID) {
@@ -128,11 +155,11 @@ function StoryHandler() {
 }
 
 // Returns true if input words are valid
-function validateInput(words) {
+function validateInput(words, maxLength) {
   var invalidWords = ["apple", "banana", "pear", "gergo"];
   var valid = true;
   valid &= words.length > 0;
-  valid &= words.length <= 5;
+  valid &= words.length <= maxLength;
   invalidWords.forEach((invalidWord) => {
     valid &= !words.includes(invalidWord);
   });

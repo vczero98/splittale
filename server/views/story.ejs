@@ -4,8 +4,10 @@
       <div id="topbar">
         <h3 id="story-title"></h3>
         <div class="buttons">
-          <div class="my-tooltip"><i class="fas fa-flag"></i><span class="tooltiptext">Report</span></div>
-          <div class="my-tooltip"><i id="btn-favourite" class="far fa-star"></i><span class="tooltiptext"><span id="txt-favourite">Add to favourites</span></span></div>
+          <% if (currentUser) { %>
+            <div class="my-tooltip"><i class="fas fa-flag"></i><span class="tooltiptext">Report</span></div>
+            <div class="my-tooltip"><i id="btn-favourite" class="far fa-star"></i><span class="tooltiptext"><span id="txt-favourite">Add to favourites</span></span></div>
+          <% } %>
           <div class="my-tooltip">
             <i id="btn-share" class="fas fa-share-square"></i>
             <span class="tooltiptext">Share</span>
@@ -16,13 +18,9 @@
       <div id="story-main">
         <p><span class="story-slice"><span id="player-text"></span><span id="player-text-too-long"></span></p>
       </div>
-      <form id="new-text" onsubmit="nextStory(); return false;">
-        <input id="input-text" type="text" name="newText" placeholder="Enter up to 5 words" autocomplete="off">
-        <button type="button" class="btn btn-light text-primary round">Skip →</button>
-      </form>
     </div>
     <div id="no-story">
-      <p>No stories are available at the moment. So why not create one?</p>
+      <p>This story does not exists.</p>
     </div>
   </div>
   <!-- Copy to clipboard modal -->
@@ -45,10 +43,11 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    var mode = "write";
+  <script>
+    var storyID = "<%= storyID %>";
+    var mode = "read";
   </script>
   <script type="text/javascript" src="/js/protocol.js"></script>
   <script type="text/javascript" src="/js/displaystory.js"></script>
-  <script type="text/javascript" src="/js/story.js"></script>
+  <script type="text/javascript" src="/js/readstory.js"></script>
 <% include ./partials/footer %>
