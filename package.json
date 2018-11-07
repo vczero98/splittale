@@ -4,7 +4,8 @@
   "description": "Game for writing stories together with each other",
   "main": "server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_server/app.js"
   },
   "repository": {
     "type": "git",
