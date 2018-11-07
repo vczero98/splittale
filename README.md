@@ -17,6 +17,7 @@ For running in development, create a file called ``.env``, where you may place t
     ADDRESS =
     FACEBOOK_APP_ID =
     FACEBOOK_APP_SECRET =
+    FACEBOOK_APP_CALLBACK =
     DATABASE_URL =
     EXPRESS_SESSION_SECRET =
 
