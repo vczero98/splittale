@@ -11,7 +11,7 @@ var express          = require("express"),
     https            = require("https");
 
 var logging      = require("./logging"),
-    StoryHandler = require("./game/storyHandler");
+    StoryHandler = require("./game/storyhandler");
 
 var storyHandler = new StoryHandler();
 storyHandler.start();
