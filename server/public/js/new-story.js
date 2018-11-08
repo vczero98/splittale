@@ -9,6 +9,19 @@ $(document).ready(function() {
   });
 });
 
+$("#inputStart").on("input", function() {
+  var n = 0
+  var text = $("#inputStart").val();
+  text = text.trim();
+
+  n = text.split(/\s+/).length;
+  if (text == "") n = 0;
+
+  $("#wordcount").text(n);
+  if (n > 15) $("#wordcount").addClass("too-long");
+  else $("#wordcount").removeClass("too-long");
+})
+
 var buttonLocked = false;
 
 function submitStory() {
