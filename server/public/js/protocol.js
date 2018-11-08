@@ -10,6 +10,9 @@ function Categories() {
   }, {
     id: 3,
     name: "Fan fiction"
+  }, {
+    id: 4,
+    name: "Food"
   }];
 
   self.categoryFromID = function(id) {
