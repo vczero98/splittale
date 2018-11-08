@@ -37,14 +37,14 @@ module.exports = function(storyHandler) {
     res.send(storyHandler.submitEdit(storyID, newWords, req.user._id));
   });
 
-  // Stories - INDEX route
-  router.get("/stories/:id", function(req, res) {
-    res.render("story", {storyID: req.params.id});
-  });
-
   // Stories - NEW route
   router.get("/stories/new", middleware.isLoggedIn, function(req, res) {
     res.render("new-story");
+  });
+
+  // Stories - INDEX route
+  router.get("/stories/:id", function(req, res) {
+    res.render("story", {storyID: req.params.id});
   });
 
   // Stories - CREATE route

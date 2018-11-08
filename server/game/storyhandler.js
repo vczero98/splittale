@@ -91,6 +91,16 @@ function StoryHandler() {
       return {error: "Could not save story"};
     }
 
+    promise.then(function(retStory) {
+      retStory.populate("author", "fb_id name").
+      populate({path: "words.author", select: "fb_id name points"}, function(err, s) {
+        if (err) {
+          return {error: "Could not save story"};
+        }
+        stories.push(s);
+      });
+    });
+
     return {error: null};
   }
 
