@@ -13,8 +13,6 @@ function copyToClipboard() {
 // Requires story variable to be set up
 function displayStory() {
   if (story) {
-    $("#story").show();
-    $("#no-story").hide();
     $("#story-title").text(story.title);
     $("#story-author").text(story.author.name);
     $("#story-author-photo").attr("src", "");
@@ -75,6 +73,8 @@ function displayStory() {
     playerTextTooLongSpan.id = "player-text-too-long";
     paragraph.append(playerTextSpan);
     paragraph.append(playerTextTooLongSpan);
+    $("#story").show();
+    $("#no-story").hide();
   } else {
     $("#story").hide();
     $("#no-story").show();

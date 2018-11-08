@@ -1,3 +1,7 @@
+const ANIMATION_LENGTH = 500; // in ms
+const ANIMATION_IN = "zoomInRight";
+const ANIMATION_OUT = "zoomOutLeft";
+
 $("#input-text").on("input", function() {
  updateEntry();
 });
@@ -33,6 +37,10 @@ function updateEntry() {
 $(document).ready(function() {
   var story = getStory(function() {
     displayStory();
+    $('#story').addClass('animated ' + ANIMATION_IN);
+    setTimeout(function() {
+      $('#story').removeClass('animated ' + ANIMATION_IN);
+    }, ANIMATION_LENGTH);
   });
   $("#new-text button").click(function() {
     nextStory();
@@ -57,7 +65,6 @@ function sendStory(next) {
 }
 
 function nextStory() {
-  const ANIMATION_LENGTH = 1500; // 1500 ms
   var storyDiv = $("#story");
   var animationComplete = false;
   var requestComplete = false;
@@ -79,10 +86,12 @@ function nextStory() {
 
   function moveToNextStory() {
     // Start by moving the panel out
-    storyDiv.animate({left: -1 * (storyDiv.position().left + storyDiv.width())}, ANIMATION_LENGTH, function() {
+    $('#story').addClass('animated ' + ANIMATION_OUT);
+    setTimeout(function() {
       animationComplete = true;
+      $('#story').removeClass('animated ' + ANIMATION_OUT);
       step2();
-    });
+    }, ANIMATION_LENGTH);
 
     getStory(() => {
       requestComplete = true;
@@ -91,13 +100,13 @@ function nextStory() {
 
     // Only execute once both getStory and animation are complete
     function step2() {
-      if (animationComplete && requestComplete)
-        storyDiv.animate({left: $(window).width()}, 0, step3);
-    }
-
-    function step3() {
-      displayStory();
-      storyDiv.animate({left: 0}, ANIMATION_LENGTH);
+      if (animationComplete && requestComplete) {
+        displayStory();
+        $('#story').addClass('animated ' + ANIMATION_IN);
+        setTimeout(function() {
+          $('#story').removeClass('animated ' + ANIMATION_IN);
+        }, ANIMATION_LENGTH);
+      }
     }
   }
 }

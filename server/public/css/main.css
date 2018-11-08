@@ -45,6 +45,8 @@ nav {
 #story {
   margin-top: 25px;
   position: relative;
+  -webkit-animation-duration: 0.5s;
+  display: none;
 }
 
 #story #topbar {
@@ -350,6 +352,7 @@ input:focus {
 }
 
 #no-story {
+  margin-top: 25px;
   display: none;
   color: white;
 }

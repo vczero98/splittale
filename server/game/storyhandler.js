@@ -28,13 +28,18 @@ function StoryHandler() {
     while (availableStories.length > 0) {
       var indexToTry = Math.floor(Math.random() * availableStories.length);
       var storyToCheck = stories[availableStories[indexToTry]];
-      // TODO: Add checking for last editor
+      var storyValid = true;
+      // Check if the story is locked by someone else
       var checkLock = isStoryLocked(storyToCheck._id);
-      if (checkLock.locked && checkLock.lockedBy != userID) {
-        availableStories.splice(indexToTry, 1);
-      } else {
+      storyValid &= !checkLock.locked || checkLock.lockedBy == userID;
+      // Check if the last editor was the user
+      var lastEdit = storyToCheck.words[storyToCheck.words.length - 1];
+      storyValid &= lastEdit.author._id != userID;
+      if (storyValid) {
         lockStory(storyToCheck._id, userID) // Lock story for exclusice editing
         return storyToCheck;
+      } else {
+        availableStories.splice(indexToTry, 1);
       }
     }
 
@@ -83,7 +88,7 @@ function StoryHandler() {
       title: title,
       author: userID,
       category: category,
-      words: [{text: words, author: userID}]
+      words: [{text: appendWords(words), author: userID}]
     });
 
     var promise = newStory.save();

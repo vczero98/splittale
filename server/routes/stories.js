@@ -14,20 +14,20 @@ module.exports = function(storyHandler) {
   router.get("/getstory", middleware.isLoggedIn, function(req, res) {
     var story = storyHandler.getAnyStoryToEdit(req.user._id);
 
-	if (story) {
-		// Check if the story is in favourites
-	    Favourite.count({u_id: req.user._id, s_id: story._id}, function(err, count) {
-	      if (err) {
-	        logging.error(err);
-	      } else {
-	        var returnStory = story.toObject();
-	        returnStory.isFavourite = count > 0;
-	        res.send(returnStory);
-	      }
-	    });
-	} else {
-		res.send(story);
-	}
+    if (story) {
+      // Check if the story is in favourites
+      Favourite.count({u_id: req.user._id, s_id: story._id}, function(err, count) {
+        if (err) {
+          logging.error(err);
+        } else {
+          var returnStory = story.toObject();
+          returnStory.isFavourite = count > 0;
+          res.send(returnStory);
+        }
+      });
+    } else {
+      res.send(story);
+    }
   });
 
   router.post("/addwords", middleware.isLoggedIn, function(req, res) {
@@ -60,7 +60,9 @@ module.exports = function(storyHandler) {
 
   // Favourites - INDEX route
   router.get("/favourites", middleware.isLoggedIn, function(req, res) {
-    Favourite.find({u_id: req.user._id}).populate("s_id", "_id title words.a category").exec(function(err, favs) {
+    Favourite.find({u_id: req.user._id}).
+    populate("s_id", "_id title words.a category").
+    exec(function(err, favs) {
       if (err) {
         logging.error(err);
         res.redirect("/");
